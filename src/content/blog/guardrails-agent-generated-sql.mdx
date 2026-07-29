@@ -1,0 +1,15 @@
+## Safety is a system property
+
+Prompt instructions alone cannot make generated SQL safe. A production workflow needs constraints before generation, deterministic validation after generation, and database authorization during execution.
+
+## Draft architecture
+
+- Minimize schema context to the user's allowed surface.
+- Reject unsupported statements with an AST-aware validator.
+- Bind tenant and role context through Row-Level Security.
+- Clarify ambiguous requests before generating SQL.
+- Record the complete agent and query trace for review.
+
+## Failure scenarios
+
+The finished post will cover prompt injection, privilege escalation, destructive statements, runaway queries, provider fallback, and how the user interface should report a safe refusal.
