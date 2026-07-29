@@ -24,6 +24,14 @@ await Promise.all([
     .resize({ width: 1000, withoutEnlargement: true })
     .webp({ quality: 84, smartSubsample: true })
     .toFile("public/images/melvin-headshot-studio.webp"),
+  sharp("assets/source-images/melvin-headshot-transparent-v4.png")
+    .resize({ width: 1000, withoutEnlargement: true })
+    .webp({ quality: 86, alphaQuality: 96, smartSubsample: true })
+    .toFile("public/images/melvin-headshot-transparent.webp"),
+  sharp("assets/source-images/melvin-at-work.jpeg")
+    .resize({ width: 1200, withoutEnlargement: true })
+    .webp({ quality: 84, smartSubsample: true })
+    .toFile("public/images/melvin-at-work.webp"),
   ...projectImages.map((name) =>
     sharp(`assets/source-images/${name}.png`)
       .resize({ width: 1600, withoutEnlargement: true })

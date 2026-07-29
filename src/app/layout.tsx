@@ -7,17 +7,15 @@ import "@fontsource-variable/outfit";
 import "@fontsource-variable/jetbrains-mono";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(siteConfig.url),
   title: { default: `${siteConfig.name} — AI Engineer`, template: `%s — ${siteConfig.name}` },
   description: siteConfig.summary,
   keywords: ["AI Engineer", "Agentic AI", "Graph-RAG", "Multi-Agent Systems", "LangGraph", "LLM Infrastructure"],
   authors: [{ name: siteConfig.name }],
   openGraph: {
     type: "website", title: `${siteConfig.name} — AI Engineer`, description: siteConfig.summary,
-    url: siteUrl, siteName: siteConfig.name,
+    url: siteConfig.url, siteName: siteConfig.name,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: `${siteConfig.name}, AI Engineer` }],
   },
   twitter: {

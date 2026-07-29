@@ -16,7 +16,7 @@ export default function AboutPage() {
         <p>{siteConfig.summary}</p>
       </section>
       <section className="chapter about-grid">
-        <div className="about-image"><Image src="/images/wmremove-transformed.jpeg" alt="Professional portrait of Melvin M Shajan" width={1000} height={1254} sizes="(max-width: 800px) 100vw, 42vw" /></div>
+        <div className="about-image"><Image src="/images/melvin-at-work.webp" alt="Melvin M Shajan working at his desk in a sunlit studio" width={1200} height={1807} sizes="(max-width: 800px) 100vw, 42vw" /></div>
         <div className="about-copy">
           <h2>From software foundations to agentic systems.</h2>
           <p>At NCompass Techstudio, I work across LLM orchestration, retrieval, backend services, data pipelines,

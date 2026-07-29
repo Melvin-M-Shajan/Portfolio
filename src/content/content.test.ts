@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { posts } from "@/content/posts";
 import { projects } from "@/content/projects";
-import { siteConfig, workHighlights } from "@/content/site";
+import { siteConfig, skills, workHighlights } from "@/content/site";
 
 describe("portfolio configuration", () => {
   it("keeps unverified outcomes explicit and links honest", () => {
@@ -16,6 +16,7 @@ describe("portfolio configuration", () => {
   it("keeps private contact details out of public configuration", () => {
     expect(JSON.stringify(siteConfig)).not.toMatch(/\+91|Chennai/i);
     expect(siteConfig.resumeUrl).toBe("/melvin-m-shajan-resume.pdf");
+    expect(siteConfig.url).toMatch(/^https:\/\/.+\.vercel\.app$/);
   });
 
   it("maps every draft post to an MDX outline", () => {
@@ -41,6 +42,13 @@ describe("portfolio configuration", () => {
       expect(item.alt.length).toBeGreaterThan(24);
       expect(item.image).toMatch(/^\/images\/projects\/.+\.webp$/);
     }
+  });
+
+  it("keeps current professional links, work names, and AWS skills in configuration", () => {
+    expect(siteConfig.social.find((item) => item.label === "LinkedIn")?.href)
+      .toBe("https://www.linkedin.com/in/melvin-shajan");
+    expect(workHighlights.some((item) => item.title === "Swark")).toBe(true);
+    expect(skills.Cloud).toEqual(expect.arrayContaining(["AWS", "Amazon EC2", "Amazon S3", "AWS Lambda"]));
   });
 
   it("provides distinct imagery for research cards and case studies", () => {

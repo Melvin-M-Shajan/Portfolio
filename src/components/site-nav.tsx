@@ -37,10 +37,6 @@ export function SiteNav() {
       transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
     >
       <nav className="floating-nav" aria-label="Primary navigation">
-        <Link className="brand-mark" href="/" prefetch={false} aria-label="Melvin M Shajan, home">
-          <span className="brand-wordmark">Melvin<span>.</span></span>
-          <span className="brand-role">AI engineer</span>
-        </Link>
         <div className="desktop-nav">
           {navItems.map((item) => {
             const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);

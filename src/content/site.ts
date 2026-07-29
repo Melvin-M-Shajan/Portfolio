@@ -1,5 +1,6 @@
 export type SiteConfig = {
   name: string;
+  url: string;
   role: string;
   headline: string;
   summary: string;
@@ -14,6 +15,7 @@ export type SiteConfig = {
 
 export const siteConfig: SiteConfig = {
   name: "Melvin M Shajan",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://melvin-shajan-portfolio.vercel.app",
   role: "AI Engineer",
   headline: "I build production\nmulti-agent systems\nthat ship, not demos.",
   summary:
@@ -24,7 +26,7 @@ export const siteConfig: SiteConfig = {
   analyticsEnabled: process.env.NEXT_PUBLIC_ENABLE_ANALYTICS === "true",
   social: [
     { label: "GitHub", href: "https://github.com/Melvin-M-Shajan" },
-    { label: "LinkedIn", href: "https://linkedin.com/in/melvin-shajan-731a66225/" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/melvin-shajan" },
   ],
   currentExploring: [
     {
@@ -59,6 +61,7 @@ export const skills = {
   "AI frameworks": ["LangGraph", "LangChain", "OpenAI API", "Anthropic API", "LangSmith"],
   "AI systems": ["Agentic AI", "Multi-Agent Systems", "RAG", "Graph-RAG", "LLM Evaluation"],
   Data: ["PostgreSQL", "Neo4j", "Weaviate", "Vector Databases", "PostGIS"],
+  Cloud: ["AWS", "Amazon EC2", "Amazon S3", "AWS Lambda", "Amazon RDS", "Amazon Bedrock", "CloudWatch"],
   Engineering: ["React", "FastAPI", "NestJS", "REST APIs", "Docker"],
   Tools: ["Git", "Linux", "Apache NiFi", "Apache Superset", "Claude Code"],
 } as const;
@@ -71,10 +74,10 @@ export const workHighlights = [
     alt: "A paper invoice routed through a network of precision backend modules",
   },
   {
-    title: "CodeWiki",
+    title: "Swark",
     detail: "Generated architecture graphs and commit insights for any GitHub repository, cutting onboarding time by 30%.",
     image: "/images/projects/codewiki.webp",
-    alt: "An exploded software repository model revealing architecture and commit branches",
+    alt: "Swark visualized as an exploded software repository model revealing architecture and commit branches",
   },
   {
     title: "Knowledge-graph search",

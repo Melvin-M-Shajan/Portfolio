@@ -24,8 +24,8 @@ export default function HomePage() {
         </div>
         <div className="hero-visual">
           <div className="portrait-frame">
-            <Image src="/images/melvin-headshot-studio.webp" alt="Professional portrait of Melvin M Shajan" width={1000} height={1254}
-              sizes="(max-width: 780px) 92vw, 38vw" priority />
+            <Image src="/images/melvin-headshot-transparent.webp" alt="Professional portrait of Melvin M Shajan" width={1024} height={1536}
+              sizes="(max-width: 780px) 92vw, 36vw" priority />
           </div>
           <HeroGraph />
         </div>

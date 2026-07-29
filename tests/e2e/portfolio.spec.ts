@@ -91,14 +91,29 @@ test("portrait is unobstructed and work accordion uses generated imagery", async
   await expect(page.locator(".horizontal-accordion .accordion-media img")).toHaveCount(4);
 });
 
-test("wordmark replaces initials and the large footer is home-only", async ({ page }) => {
+test("navigation omits the brand mark and the large footer is home-only", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("link", { name: "Melvin M Shajan, home" })).toContainText("Melvin.");
+  await expect(page.locator(".brand-mark")).toHaveCount(0);
   await expect(page.locator(".site-footer")).toHaveCount(1);
   for (const route of routes.slice(1)) {
     await page.goto(route);
     await expect(page.locator(".site-footer")).toHaveCount(0);
   }
+});
+
+test("requested profile content is current", async ({ page }) => {
+  await page.goto("/about/");
+  await expect(page.locator(".about-image img")).toHaveAttribute("src", /melvin-at-work/);
+
+  await page.goto("/projects/");
+  await expect(page.getByText("Swark", { exact: true })).toBeVisible();
+
+  await page.goto("/skills/");
+  await expect(page.locator(".skill-groups").getByText("Amazon Bedrock", { exact: true })).toBeVisible();
+
+  await page.goto("/contact/");
+  await expect(page.getByRole("link", { name: /linkedin professional profile/i }))
+    .toHaveAttribute("href", "https://www.linkedin.com/in/melvin-shajan");
 });
 
 test("about and project pages use distinct generated imagery without scrolling diagrams", async ({ page }) => {
