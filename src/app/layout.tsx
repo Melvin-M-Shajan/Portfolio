@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteNav } from "@/components/site-nav";
-import { SiteFooter } from "@/components/site-footer";
 import { siteConfig } from "@/content/site";
 import "@fontsource-variable/outfit";
 import "@fontsource-variable/jetbrains-mono";
@@ -41,7 +40,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <a className="skip-link" href="#main-content">Skip to content</a>
           <SiteNav />
           <main id="main-content" className="page-shell">{children}</main>
-          <SiteFooter />
           {siteConfig.analyticsEnabled ? <Analytics /> : null}
         </ThemeProvider>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />

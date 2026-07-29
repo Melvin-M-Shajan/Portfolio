@@ -20,7 +20,7 @@ const projectImages = [
 
 await Promise.all([
   sharp("public/og-source.svg").png().toFile("public/og.png"),
-  sharp("assets/source-images/melvin-headshot-studio.png")
+  sharp("assets/source-images/melvin-headshot-studio-v2.png")
     .resize({ width: 1000, withoutEnlargement: true })
     .webp({ quality: 84, smartSubsample: true })
     .toFile("public/images/melvin-headshot-studio.webp"),

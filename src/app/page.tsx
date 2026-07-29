@@ -5,6 +5,7 @@ import { HeroGraph } from "@/components/hero-graph";
 import { GlowingCard, HorizontalAccordion } from "@/components/ui";
 import { PinnedWorkStory, ScrubStatement } from "@/components/motion-sections";
 import { SkillMarquee } from "@/components/skill-marquee";
+import { SiteFooter } from "@/components/site-footer";
 import { projects } from "@/content/projects";
 import { siteConfig, workHighlights } from "@/content/site";
 
@@ -74,6 +75,7 @@ export default function HomePage() {
       </section>
 
       <section className="chapter marquee-chapter"><p className="eyebrow">Working vocabulary</p><SkillMarquee /></section>
+      <SiteFooter />
     </>
   );
 }

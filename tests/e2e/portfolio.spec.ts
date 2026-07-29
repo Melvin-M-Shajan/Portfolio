@@ -52,12 +52,15 @@ test("unknown routes use the custom 404", async ({ page }) => {
   await expect(page.getByRole("heading", { name: /this agent reached a node that does not exist/i })).toBeVisible();
 });
 
-for (const width of [375, 768, 1440]) {
-  test(`layout has no horizontal overflow at ${width}px`, async ({ page }) => {
+for (const width of [320, 375, 566, 768, 982, 1440]) {
+  test(`every route stays within the viewport at ${width}px`, async ({ page }) => {
+    test.setTimeout(120_000);
     await page.setViewportSize({ width, height: 1000 });
-    await page.goto("/");
-    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
-    expect(overflow).toBeLessThanOrEqual(1);
+    for (const route of routes) {
+      await page.goto(route);
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+      expect(overflow, `${route} overflowed at ${width}px`).toBeLessThanOrEqual(1);
+    }
   });
 }
 
@@ -73,16 +76,29 @@ test("hero headline stays within three lines on desktop", async ({ page }) => {
 });
 
 test("portrait is unobstructed and work accordion uses generated imagery", async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.setViewportSize({ width: 982, height: 698 });
   await page.goto("/");
   const heroLayers = await page.evaluate(() => ({
     portrait: Number.parseInt(getComputedStyle(document.querySelector(".portrait-frame")!).zIndex, 10),
     graph: Number.parseInt(getComputedStyle(document.querySelector(".hero-graph")!).zIndex, 10),
     supervisorLabels: document.querySelectorAll(".hero-graph text").length,
+    portraitCenter: (() => { const box = document.querySelector(".portrait-frame")!.getBoundingClientRect(); return box.left + box.width / 2; })(),
+    graphCenter: (() => { const box = document.querySelector(".hero-graph")!.getBoundingClientRect(); return box.left + box.width / 2; })(),
   }));
   expect(heroLayers.portrait).toBeGreaterThan(heroLayers.graph);
   expect(heroLayers.supervisorLabels).toBe(0);
+  expect(heroLayers.graphCenter).toBeLessThan(heroLayers.portraitCenter);
   await expect(page.locator(".horizontal-accordion .accordion-media img")).toHaveCount(4);
+});
+
+test("wordmark replaces initials and the large footer is home-only", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: "Melvin M Shajan, home" })).toContainText("Melvin.");
+  await expect(page.locator(".site-footer")).toHaveCount(1);
+  for (const route of routes.slice(1)) {
+    await page.goto(route);
+    await expect(page.locator(".site-footer")).toHaveCount(0);
+  }
 });
 
 test("about and project pages use distinct generated imagery without scrolling diagrams", async ({ page }) => {

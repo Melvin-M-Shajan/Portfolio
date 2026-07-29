@@ -38,7 +38,8 @@ export function SiteNav() {
     >
       <nav className="floating-nav" aria-label="Primary navigation">
         <Link className="brand-mark" href="/" prefetch={false} aria-label="Melvin M Shajan, home">
-          MS
+          <span className="brand-wordmark">Melvin<span>.</span></span>
+          <span className="brand-role">AI engineer</span>
         </Link>
         <div className="desktop-nav">
           {navItems.map((item) => {
