@@ -16,7 +16,7 @@ export default function AboutPage() {
         <p>{siteConfig.summary}</p>
       </section>
       <section className="chapter about-grid">
-        <div className="about-image"><Image src="/images/melvin-headshot-studio.webp" alt="Professional portrait of Melvin M Shajan" width={1000} height={1254} sizes="(max-width: 800px) 100vw, 42vw" /></div>
+        <div className="about-image"><Image src="/images/wmremove-transformed.jpeg" alt="Professional portrait of Melvin M Shajan" width={1000} height={1254} sizes="(max-width: 800px) 100vw, 42vw" /></div>
         <div className="about-copy">
           <h2>From software foundations to agentic systems.</h2>
           <p>At NCompass Techstudio, I work across LLM orchestration, retrieval, backend services, data pipelines,
@@ -33,7 +33,12 @@ export default function AboutPage() {
         <div className="section-heading"><p className="eyebrow">Currently exploring</p><h2>The questions on my workbench right now.</h2></div>
         <div className="exploring-grid">
           {siteConfig.currentExploring.map((item) => (
-            <GlowingCard key={item.title}><div className="card-static"><h3>{item.title}</h3><p>{item.detail}</p></div></GlowingCard>
+            <GlowingCard key={item.title}>
+              <article className="exploring-card">
+                <Image src={item.image} alt={item.alt} fill sizes="(max-width: 800px) 100vw, 33vw" />
+                <div className="exploring-card-copy"><h3>{item.title}</h3><p>{item.detail}</p></div>
+              </article>
+            </GlowingCard>
           ))}
         </div>
       </section>

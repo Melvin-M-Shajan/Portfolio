@@ -26,7 +26,13 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
       <section className="chapter case-section"><div><p className="eyebrow">Problem</p><h2>What had to change.</h2></div><p>{project.problem}</p></section>
       <section className="chapter architecture-section">
         <div className="section-heading"><p className="eyebrow">Architecture</p><h2>How information moves through the system.</h2></div>
-        <ArchitectureDiagram nodes={project.architecture.nodes} edges={project.architecture.edges} title={`${project.title} architecture`} />
+        <ArchitectureDiagram
+          nodes={project.architecture.nodes}
+          edges={project.architecture.edges}
+          title={`${project.title} architecture`}
+          image={project.architecture.image}
+          alt={project.architecture.alt}
+        />
       </section>
       <section className="chapter case-columns">
         <article><p className="eyebrow">Approach</p><h2>Engineering decisions</h2><ol>{project.approach.map((item) => <li key={item}>{item}</li>)}</ol></article>
@@ -39,6 +45,7 @@ export default async function ProjectPage({ params }: { params: Promise<{ slug: 
         ))}</div>
         <div className="project-links">
           {project.links.github ? <a className="button button-secondary" href={project.links.github} target="_blank" rel="noreferrer">GitHub repository <ArrowUpRight /></a> : <span className="muted-link">Repository is not public</span>}
+          {project.links.package ? <a className="button button-secondary" href={project.links.package} target="_blank" rel="noreferrer">npm package <ArrowUpRight /></a> : null}
           {project.links.demo ? <a className="button button-secondary" href={project.links.demo} target="_blank" rel="noreferrer">Live demo <ArrowUpRight /></a> : <span className="muted-link">No public demo</span>}
         </div>
       </section>

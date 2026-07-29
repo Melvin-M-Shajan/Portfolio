@@ -10,8 +10,10 @@ export type ProjectCaseStudy = {
   challenges: string[];
   outcomes: { label: string; value: string | null }[];
   technologies: string[];
-  links: { github: string | null; demo: string | null };
-  architecture: { nodes: DiagramNode[]; edges: DiagramEdge[] };
+  featureImage: string;
+  featureAlt: string;
+  links: { github: string | null; demo: string | null; package: string | null };
+  architecture: { image: string; alt: string; nodes: DiagramNode[]; edges: DiagramEdge[] };
 };
 
 export const projects: ProjectCaseStudy[] = [
@@ -37,8 +39,12 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Cost per query", value: null },
     ],
     technologies: ["Neo4j", "LangGraph", "Weaviate", "FastAPI", "Apache NiFi", "PostgreSQL", "LangSmith", "Anthropic API", "React"],
-    links: { github: null, demo: null },
+    featureImage: "/images/projects/graphrag-enterprise-feature.webp",
+    featureAlt: "Enterprise documents flowing into graph and vector retrieval systems before converging on evidence",
+    links: { github: null, demo: null, package: null },
     architecture: {
+      image: "/images/projects/graphrag-enterprise-architecture.webp",
+      alt: "Enterprise sources branching into graph and vector stores before hybrid retrieval produces a grounded answer",
       nodes: [
         { id: "sources", label: "Enterprise sources", x: 40, y: 110 },
         { id: "nifi", label: "NiFi ETL", x: 220, y: 110 },
@@ -62,14 +68,14 @@ export const projects: ProjectCaseStudy[] = [
     title: "Multi-Agent Control Platform",
     strapline: "Natural language to safe SQL through supervised specialist agents.",
     problem:
-      "Business users needed conversational access to PostgreSQL without exposing unsafe SQL, leaking tenant data, or hiding how the system reached an answer.",
+      "Business users needed conversational access to PostgreSQL without allowing destructive SQL or hiding how requests were routed and executed.",
     approach: [
-      "Used a Supervisor Agent to route clarification, SQL generation, execution, formatting, and diagram work.",
-      "Grounded agents in dynamically minified schema context with Zod validation and dual-layer SQL guardrails.",
-      "Added Row-Level Security context switching, Gemini-to-Groq fallbacks, RxJS retries, and a React 19 observability dashboard.",
+      "Used a Supervisor Agent and registry to route work across specialized agents in parallel or sequence.",
+      "Wrapped LangChain model providers behind a NestJS integration layer with Zod structured outputs.",
+      "Injected live schema context, blocked destructive statements, executed safe TypeORM queries, and recorded routing and token traces.",
     ],
     challenges: [
-      "Keeping generated SQL inside the user's authorization boundary.",
+      "Keeping generated SQL read-only and grounded in the live database schema.",
       "Recovering cleanly from model-provider and database failures.",
       "Making multi-agent execution understandable to operators.",
     ],
@@ -78,14 +84,22 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Median response time", value: null },
       { label: "Manual analysis saved", value: null },
     ],
-    technologies: ["NestJS", "TypeScript", "LangChain", "Gemini", "Groq", "PostgreSQL", "TypeORM", "Zod", "RxJS", "React 19", "ReactFlow", "Recharts"],
-    links: { github: "https://github.com/Melvin-M-Shajan/MCP", demo: null },
+    technologies: ["NestJS", "TypeScript", "LangChain", "Gemini", "Groq", "PostgreSQL", "TypeORM", "Zod", "RxJS", "npm"],
+    featureImage: "/images/projects/multi-agent-control-platform-feature.webp",
+    featureAlt: "A supervisor routes a natural-language query through specialist, validation, database, and response modules",
+    links: {
+      github: "https://github.com/Melvin-M-Shajan/MCP/tree/nest/react/mcp-server",
+      demo: null,
+      package: "https://www.npmjs.com/package/melcp",
+    },
     architecture: {
+      image: "/images/projects/multi-agent-control-platform-architecture.webp",
+      alt: "A query passes through supervisor routing, specialist agents, validation, PostgreSQL, and response formatting",
       nodes: [
         { id: "query", label: "User query", x: 35, y: 110 },
         { id: "supervisor", label: "Supervisor", x: 200, y: 110 },
         { id: "agents", label: "Specialist agents", x: 385, y: 55 },
-        { id: "guardrails", label: "Guardrails + RLS", x: 385, y: 165 },
+        { id: "guardrails", label: "Validation gate", x: 385, y: 165 },
         { id: "database", label: "PostgreSQL", x: 585, y: 110 },
         { id: "response", label: "Verified response", x: 770, y: 110 },
       ],

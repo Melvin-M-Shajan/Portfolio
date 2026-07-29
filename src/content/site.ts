@@ -8,7 +8,8 @@ export type SiteConfig = {
   formEndpoint: string | null;
   analyticsEnabled: boolean;
   social: { label: string; href: string }[];
-  currentExploring: { title: string; detail: string }[];
+  currentExploring: { title: string; detail: string; image: string; alt: string }[];
+  publishedPackage: { name: string; href: string; description: string; installCommand: string };
 };
 
 export const siteConfig: SiteConfig = {
@@ -26,10 +27,31 @@ export const siteConfig: SiteConfig = {
     { label: "LinkedIn", href: "https://linkedin.com/in/melvin-shajan-731a66225/" },
   ],
   currentExploring: [
-    { title: "LLM evaluation", detail: "Measuring faithfulness, tool-use quality, and recovery behavior." },
-    { title: "Graph-RAG benchmarking", detail: "Testing multi-hop retrieval against flat vector baselines." },
-    { title: "Reliable tool use", detail: "Designing agents that clarify, validate, and fail safely." },
+    {
+      title: "LLM evaluation",
+      detail: "Measuring faithfulness, tool-use quality, and recovery behavior.",
+      image: "/images/projects/llm-evaluation.webp",
+      alt: "Precision optical instruments evaluating model evidence, tool use, and recovery loops",
+    },
+    {
+      title: "Graph-RAG benchmarking",
+      detail: "Testing multi-hop retrieval against flat vector baselines.",
+      image: "/images/projects/graph-rag-benchmarking.webp",
+      alt: "A controlled comparison between a flat vector field and a multi-hop graph path",
+    },
+    {
+      title: "Reliable tool use",
+      detail: "Designing agents that clarify, validate, and fail safely.",
+      image: "/images/projects/reliable-tool-use.webp",
+      alt: "A precision safety instrument clarifying, validating, and safely rejecting inputs",
+    },
   ],
+  publishedPackage: {
+    name: "melcp",
+    href: "https://www.npmjs.com/package/melcp",
+    description: "An npm CLI for AI-powered PostgreSQL and codebase introspection.",
+    installCommand: "npm install -g melcp",
+  },
 };
 
 export const skills = {
@@ -69,7 +91,7 @@ export const workHighlights = [
   {
     title: "Geospatial analytics",
     detail: "Delivered PostGIS and Apache Superset dashboards that replaced spreadsheet-based validation.",
-    image: "/images/projects/climate-etl.webp",
-    alt: "Layered climate and terrain data prepared for geospatial analytics",
+    image: "/images/projects/geospatial-analytics.webp",
+    alt: "Layered terrain, cadastral boundaries, and spatial indexes prepared for geospatial analysis",
   },
 ] as const;

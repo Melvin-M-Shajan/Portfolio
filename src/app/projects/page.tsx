@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { GlowingCard, HorizontalAccordion } from "@/components/ui";
 import { projects } from "@/content/projects";
@@ -18,8 +19,11 @@ export default function ProjectsPage() {
         {projects.map((project, index) => (
           <GlowingCard key={project.slug}>
             <Link href={`/projects/${project.slug}`} className="project-row group">
+              <span className="project-row-media">
+                <Image src={project.featureImage} alt={project.featureAlt} fill sizes="(max-width: 800px) 100vw, 1180px" />
+              </span>
               <span className="project-row-number">0{index + 1}</span>
-              <div><h2>{project.title}</h2><p>{project.strapline}</p>
+              <div className="project-row-copy"><h2>{project.title}</h2><p>{project.strapline}</p>
                 <div className="tag-list">{project.technologies.slice(0, 6).map((tech) => <span key={tech}>{tech}</span>)}</div></div>
               <ArrowUpRight size={28} weight="bold" />
             </Link>

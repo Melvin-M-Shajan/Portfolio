@@ -8,6 +8,14 @@ const projectImages = [
   "codewiki",
   "knowledge-graph-search",
   "climate-etl",
+  "llm-evaluation",
+  "graph-rag-benchmarking",
+  "reliable-tool-use",
+  "geospatial-analytics",
+  "graphrag-enterprise-feature",
+  "multi-agent-control-platform-feature",
+  "graphrag-enterprise-architecture",
+  "multi-agent-control-platform-architecture",
 ];
 
 await Promise.all([

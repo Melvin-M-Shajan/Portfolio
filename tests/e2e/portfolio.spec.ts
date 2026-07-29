@@ -43,6 +43,7 @@ test("resume offers inline viewing, download, and fallback", async ({ page }) =>
   await expect(page.locator('iframe[title*="resume"]')).toHaveAttribute("src", "/melvin-m-shajan-resume.pdf");
   await expect(page.getByRole("link", { name: /download pdf/i })).toHaveAttribute("download", "");
   await expect(page.getByRole("link", { name: /open the pdf directly/i })).toHaveAttribute("href", "/melvin-m-shajan-resume.pdf");
+  await expect(page.getByRole("link", { name: /view on npm/i })).toHaveAttribute("href", "https://www.npmjs.com/package/melcp");
 });
 
 test("unknown routes use the custom 404", async ({ page }) => {
@@ -82,4 +83,22 @@ test("portrait is unobstructed and work accordion uses generated imagery", async
   expect(heroLayers.portrait).toBeGreaterThan(heroLayers.graph);
   expect(heroLayers.supervisorLabels).toBe(0);
   await expect(page.locator(".horizontal-accordion .accordion-media img")).toHaveCount(4);
+});
+
+test("about and project pages use distinct generated imagery without scrolling diagrams", async ({ page }) => {
+  await page.setViewportSize({ width: 638, height: 900 });
+  await page.goto("/about/");
+  await expect(page.locator(".exploring-card img")).toHaveCount(3);
+
+  await page.goto("/projects/");
+  await expect(page.locator(".project-row-media img")).toHaveCount(2);
+  await expect(page.locator(".horizontal-accordion .accordion-media img")).toHaveCount(5);
+
+  for (const slug of ["graphrag-enterprise", "multi-agent-control-platform"]) {
+    await page.goto(`/projects/${slug}/`);
+    await expect(page.locator(".architecture-media img")).toBeVisible();
+    await expect(page.locator(".architecture-node-list li")).toHaveCount(6);
+    const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+    expect(overflow).toBeLessThanOrEqual(1);
+  }
 });

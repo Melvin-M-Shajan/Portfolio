@@ -8,8 +8,9 @@ describe("portfolio configuration", () => {
   it("keeps unverified outcomes explicit and links honest", () => {
     expect(projects).toHaveLength(2);
     expect(projects.flatMap((project) => project.outcomes).every((outcome) => outcome.value === null)).toBe(true);
-    expect(projects[0].links).toEqual({ github: null, demo: null });
-    expect(projects[1].links.github).toBe("https://github.com/Melvin-M-Shajan/MCP");
+    expect(projects[0].links).toEqual({ github: null, demo: null, package: null });
+    expect(projects[1].links.github).toBe("https://github.com/Melvin-M-Shajan/MCP/tree/nest/react/mcp-server");
+    expect(projects[1].links.package).toBe("https://www.npmjs.com/package/melcp");
   });
 
   it("keeps private contact details out of public configuration", () => {
@@ -36,9 +37,19 @@ describe("portfolio configuration", () => {
   });
 
   it("provides a real image and useful alt text for each work highlight", () => {
-    for (const item of workHighlights.slice(0, 4)) {
+    for (const item of workHighlights) {
       expect(item.alt.length).toBeGreaterThan(24);
       expect(item.image).toMatch(/^\/images\/projects\/.+\.webp$/);
     }
+  });
+
+  it("provides distinct imagery for research cards and case studies", () => {
+    expect(new Set(siteConfig.currentExploring.map((item) => item.image)).size).toBe(3);
+    expect(siteConfig.currentExploring.every((item) => item.alt.length > 24)).toBe(true);
+    for (const project of projects) {
+      expect(project.featureImage).toMatch(/^\/images\/projects\/.+-feature\.webp$/);
+      expect(project.architecture.image).toMatch(/^\/images\/projects\/.+-architecture\.webp$/);
+    }
+    expect(siteConfig.publishedPackage.href).toBe("https://www.npmjs.com/package/melcp");
   });
 });
