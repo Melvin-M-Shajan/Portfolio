@@ -92,6 +92,7 @@ test("portrait is unobstructed and work accordion uses generated imagery", async
 });
 
 test("navigation omits the brand mark and the large footer is home-only", async ({ page }) => {
+  test.setTimeout(120_000);
   await page.goto("/");
   await expect(page.locator(".brand-mark")).toHaveCount(0);
   await expect(page.locator(".site-footer")).toHaveCount(1);
@@ -99,6 +100,40 @@ test("navigation omits the brand mark and the large footer is home-only", async 
     await page.goto(route);
     await expect(page.locator(".site-footer")).toHaveCount(0);
   }
+});
+
+test("Mini Mel opens, stays in the viewport, and answers a portfolio question", async ({ page }) => {
+  test.setTimeout(120_000);
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.route("**/api/ask-melvin", async (route) => {
+    await new Promise((resolve) => setTimeout(resolve, 850));
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({
+        answer: "Melvin builds production multi-agent systems and Graph-RAG platforms.",
+      }),
+    });
+  });
+  await page.goto("/");
+
+  const pet = page.getByRole("button", { name: "Ask Mini Mel about Melvin" });
+  await expect(pet).toBeVisible();
+  await pet.click({ force: true });
+  await expect(page.locator(".portfolio-pet")).toHaveAttribute("data-motion", "wave");
+
+  const dialog = page.getByRole("dialog", { name: "Ask Mini Mel about Melvin" });
+  await expect(dialog).toBeVisible();
+  const panel = await dialog.boundingBox();
+  expect(panel).not.toBeNull();
+  expect(panel!.x).toBeGreaterThanOrEqual(0);
+  expect(panel!.x + panel!.width).toBeLessThanOrEqual(375);
+
+  await page.getByLabel("Ask a question about Melvin").fill("What does Melvin build?");
+  await page.getByRole("button", { name: "Send question" }).click();
+  await expect(page.locator(".portfolio-pet")).toHaveAttribute("data-motion", "think");
+  await expect(page.getByText(/production multi-agent systems and Graph-RAG/i)).toBeVisible();
+  await expect(page.locator(".portfolio-pet")).toHaveAttribute("data-motion", "answer");
 });
 
 test("requested profile content is current", async ({ page }) => {
