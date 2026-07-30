@@ -1,4 +1,4 @@
-import { melvinKnowledge } from "@/content/assistant";
+import { melvinKnowledge } from "./melvin-knowledge.js";
 
 type ChatMessage = {
   role: "user" | "assistant";
