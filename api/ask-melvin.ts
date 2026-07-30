@@ -1,4 +1,4 @@
-import { handleMelvinAssistant } from "../src/server/melvin-assistant";
+import { handleMelvinAssistant } from "../src/server/melvin-assistant.js";
 
 const handler = {
   fetch: handleMelvinAssistant,
