@@ -139,12 +139,20 @@ test("Mini Mel opens, stays in the viewport, and answers a portfolio question", 
 test("requested profile content is current", async ({ page }) => {
   await page.goto("/about/");
   await expect(page.locator(".about-image img")).toHaveAttribute("src", /melvin-at-work/);
+  await expect(page.getByText(/Software Developer, NCompass Techstudio, April 2025 to August 2026/)).toBeVisible();
 
   await page.goto("/projects/");
   await expect(page.getByText("Swark", { exact: true })).toBeVisible();
 
+  await page.goto("/projects/multi-agent-control-platform/");
+  await expect(page.getByText(/runtime Row Level Security context switching/)).toBeVisible();
+  await expect(page.getByRole("link", { name: /GitHub repository/i }))
+    .toHaveAttribute("href", "https://github.com/Melvin-M-Shajan/multi-agent-control-platform");
+
   await page.goto("/skills/");
   await expect(page.locator(".skill-groups").getByText("Amazon Bedrock", { exact: true })).toBeVisible();
+  await expect(page.locator(".skill-groups").getByText("n8n", { exact: true })).toBeVisible();
+  await expect(page.locator(".skill-groups").getByText("Prompt Engineering", { exact: true })).toBeVisible();
 
   await page.goto("/contact/");
   await expect(page.getByRole("link", { name: /linkedin professional profile/i }))

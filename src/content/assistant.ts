@@ -11,7 +11,8 @@ export const petAssistant = {
     location: "Chennai, India",
     education:
       "B.Tech in Information Technology, Sri Krishna College of Engineering & Technology, 2021–2025.",
-    experience: "AI Engineer at NCompass Techstudio, April 2025–present.",
+    experience:
+      "Software Developer at NCompass Techstudio, April 2025 to August 2026, working across agentic AI, backend services, data pipelines, AWS workloads, and HRMS workflows.",
     languages: ["English", "Tamil", "Malayalam", "Hindi"],
   },
 } as const;

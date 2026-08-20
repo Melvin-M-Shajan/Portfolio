@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { posts } from "@/content/posts";
 import { projects } from "@/content/projects";
+import { petAssistant } from "@/content/assistant";
 import { siteConfig, skills, workHighlights } from "@/content/site";
 
 describe("portfolio configuration", () => {
@@ -9,7 +10,7 @@ describe("portfolio configuration", () => {
     expect(projects).toHaveLength(2);
     expect(projects.flatMap((project) => project.outcomes).every((outcome) => outcome.value === null)).toBe(true);
     expect(projects[0].links).toEqual({ github: null, demo: null, package: null });
-    expect(projects[1].links.github).toBe("https://github.com/Melvin-M-Shajan/MCP/tree/nest/react/mcp-server");
+    expect(projects[1].links.github).toBe("https://github.com/Melvin-M-Shajan/multi-agent-control-platform");
     expect(projects[1].links.package).toBe("https://www.npmjs.com/package/melcp");
   });
 
@@ -49,6 +50,19 @@ describe("portfolio configuration", () => {
       .toBe("https://www.linkedin.com/in/melvin-shajan");
     expect(workHighlights.some((item) => item.title === "Swark")).toBe(true);
     expect(skills.Cloud).toEqual(expect.arrayContaining(["AWS", "Amazon EC2", "Amazon S3", "AWS Lambda"]));
+    expect(skills.Automation).toEqual(expect.arrayContaining(["n8n", "Apache NiFi", "ETL Pipelines"]));
+    expect(skills["AI systems"]).toContain("Prompt Engineering");
+    expect(petAssistant.profile.experience).toContain("April 2025 to August 2026");
+  });
+
+  it("keeps the control platform details aligned with the verified resume", () => {
+    const controlPlatform = projects.find((project) => project.slug === "multi-agent-control-platform");
+
+    expect(controlPlatform?.approach.join(" ")).toMatch(/Row Level Security/);
+    expect(controlPlatform?.approach.join(" ")).toMatch(/Gemini and Groq fallback chains/);
+    expect(controlPlatform?.technologies).toEqual(
+      expect.arrayContaining(["ReactFlow", "Recharts", "Mermaid.js"]),
+    );
   });
 
   it("provides distinct imagery for research cards and case studies", () => {

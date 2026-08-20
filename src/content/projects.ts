@@ -70,9 +70,10 @@ export const projects: ProjectCaseStudy[] = [
     problem:
       "Business users needed conversational access to PostgreSQL without allowing destructive SQL or hiding how requests were routed and executed.",
     approach: [
-      "Used a Supervisor Agent and registry to route work across specialized agents in parallel or sequence.",
-      "Wrapped LangChain model providers behind a NestJS integration layer with Zod structured outputs.",
-      "Injected live schema context, blocked destructive statements, executed safe TypeORM queries, and recorded routing and token traces.",
+      "Used a Supervisor Agent to route requests through SQL generation, execution, formatting, and diagram agents, with minified live schema context grounding each request in available tables and columns.",
+      "Added SQL validation and runtime Row Level Security context switching to block destructive queries, reduce injection risk, and preserve existing PostgreSQL permissions.",
+      "Built Gemini and Groq fallback chains with retry handling so analysis could remain available when a model provider failed.",
+      "Created a ReactFlow, Recharts, and Mermaid.js observability dashboard so operators could inspect routing, execution, and failure behavior.",
     ],
     challenges: [
       "Keeping generated SQL read-only and grounded in the live database schema.",
@@ -84,11 +85,11 @@ export const projects: ProjectCaseStudy[] = [
       { label: "Median response time", value: null },
       { label: "Manual analysis saved", value: null },
     ],
-    technologies: ["NestJS", "TypeScript", "LangChain", "Gemini", "Groq", "PostgreSQL", "TypeORM", "Zod", "RxJS", "npm"],
+    technologies: ["NestJS", "TypeScript", "LangChain", "Gemini", "Groq", "PostgreSQL", "TypeORM", "Zod", "RxJS", "React", "ReactFlow", "Recharts", "Mermaid.js", "npm"],
     featureImage: "/images/projects/multi-agent-control-platform-feature.webp",
     featureAlt: "A supervisor routes a natural-language query through specialist, validation, database, and response modules",
     links: {
-      github: "https://github.com/Melvin-M-Shajan/MCP/tree/nest/react/mcp-server",
+      github: "https://github.com/Melvin-M-Shajan/multi-agent-control-platform",
       demo: null,
       package: "https://www.npmjs.com/package/melcp",
     },

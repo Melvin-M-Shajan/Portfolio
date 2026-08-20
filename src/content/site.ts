@@ -59,11 +59,12 @@ export const siteConfig: SiteConfig = {
 export const skills = {
   Languages: ["Python", "JavaScript", "TypeScript", "SQL"],
   "AI frameworks": ["LangGraph", "LangChain", "OpenAI API", "Anthropic API", "LangSmith"],
-  "AI systems": ["Agentic AI", "Multi-Agent Systems", "RAG", "Graph-RAG", "LLM Evaluation"],
+  "AI systems": ["Agentic AI", "Multi-Agent Systems", "RAG", "Graph-RAG", "Prompt Engineering", "LLM Evaluation"],
   Data: ["PostgreSQL", "Neo4j", "Weaviate", "Vector Databases", "PostGIS"],
   Cloud: ["AWS", "Amazon EC2", "Amazon S3", "AWS Lambda", "Amazon RDS", "Amazon Bedrock", "CloudWatch"],
+  Automation: ["n8n", "Apache NiFi", "ETL Pipelines"],
   Engineering: ["React", "FastAPI", "NestJS", "REST APIs", "Docker"],
-  Tools: ["Git", "Linux", "Apache NiFi", "Apache Superset", "Claude Code"],
+  Tools: ["Git", "Linux", "Apache Superset", "Claude Code"],
 } as const;
 
 export const workHighlights = [
