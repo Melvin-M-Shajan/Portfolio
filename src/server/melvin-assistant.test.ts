@@ -50,9 +50,15 @@ describe("Melvin assistant endpoint", () => {
     const request = fetchMock.mock.calls[0][1] as RequestInit;
     const payload = JSON.parse(request.body as string) as {
       model: string;
+      reasoning_effort: string;
+      include_reasoning: boolean;
+      max_completion_tokens: number;
       messages: Array<{ role: string; content: string }>;
     };
     expect(payload.model).toBe("openai/gpt-oss-20b");
+    expect(payload.reasoning_effort).toBe("low");
+    expect(payload.include_reasoning).toBe(false);
+    expect(payload.max_completion_tokens).toBe(1024);
     expect(payload.messages[0].content).toContain("VERIFIED PORTFOLIO KNOWLEDGE");
     expect(payload.messages[0].content).toContain("GraphRAG-Enterprise");
   });

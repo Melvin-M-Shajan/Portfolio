@@ -187,7 +187,9 @@ export async function handleMelvinAssistant(request: Request) {
           { role: "user", content: question },
         ],
         temperature: 0.25,
-        max_completion_tokens: 300,
+        reasoning_effort: "low",
+        include_reasoning: false,
+        max_completion_tokens: 1024,
       }),
       signal: controller.signal,
     });
