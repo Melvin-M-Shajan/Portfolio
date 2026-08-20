@@ -24,7 +24,7 @@ describe("portfolio pet", () => {
     const fetchMock = vi.fn().mockResolvedValue(
       new Response(
         JSON.stringify({
-          answer: "Melvin builds production multi-agent systems and Graph-RAG platforms.",
+          answer: "**Agent orchestration**\nLangGraph, LangChain, and LangSmith for evaluation.",
         }),
         { status: 200, headers: { "Content-Type": "application/json" } },
       ),
@@ -40,7 +40,8 @@ describe("portfolio pet", () => {
 
     expect(document.querySelector(".portfolio-pet")).toHaveAttribute("data-motion", "think");
     await waitFor(() => {
-      expect(screen.getByText(/production multi-agent systems/i)).toBeVisible();
+      expect(screen.getByText("Agent orchestration").tagName).toBe("STRONG");
+      expect(screen.getByText(/LangGraph, LangChain, and LangSmith/i)).toBeVisible();
     });
     expect(document.querySelector(".portfolio-pet")).toHaveAttribute("data-motion", "answer");
     expect(fetchMock).toHaveBeenCalledWith(

@@ -61,6 +61,7 @@ describe("Melvin assistant endpoint", () => {
     expect(payload.max_completion_tokens).toBe(1024);
     expect(payload.messages[0].content).toContain("VERIFIED PORTFOLIO KNOWLEDGE");
     expect(payload.messages[0].content).toContain("GraphRAG-Enterprise");
+    expect(payload.messages[0].content).toContain("bold short category labels");
   });
 
   it("logs provider failures without exposing the API key", async () => {

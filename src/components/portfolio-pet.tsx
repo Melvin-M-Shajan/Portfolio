@@ -9,6 +9,7 @@ import {
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import {
   type FormEvent,
+  type ReactNode,
   useEffect,
   useRef,
   useState,
@@ -33,6 +34,16 @@ const makeId = () =>
   typeof crypto !== "undefined" && "randomUUID" in crypto
     ? crypto.randomUUID()
     : `${Date.now()}-${Math.random()}`;
+
+function formatMessage(content: string): ReactNode[] {
+  return content.split(/(\*\*[^*\n]+\*\*)/g).map((part, index) => {
+    if (part.startsWith("**") && part.endsWith("**")) {
+      return <strong key={index}>{part.slice(2, -2)}</strong>;
+    }
+
+    return part;
+  });
+}
 
 const motionLabels: Partial<Record<PetMotion, string>> = {
   wave: "Hi!",
@@ -396,7 +407,7 @@ export function PortfolioPet() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: prefersReducedMotion ? 0 : 0.2 }}
                 >
-                  {message.content}
+                  {formatMessage(message.content)}
                 </motion.div>
               ))}
               {messages.length === 1 ? (
