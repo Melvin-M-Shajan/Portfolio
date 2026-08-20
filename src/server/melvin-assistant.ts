@@ -19,7 +19,7 @@ type GroqResponse = {
 };
 
 const GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
-const GROQ_MODEL = "llama-3.1-8b-instant";
+const DEFAULT_GROQ_MODEL = "openai/gpt-oss-20b";
 const MAX_QUESTION_LENGTH = 500;
 const MAX_HISTORY_MESSAGES = 6;
 const WINDOW_MS = 10 * 60 * 1000;
@@ -137,6 +137,8 @@ export async function handleMelvinAssistant(request: Request) {
     );
   }
 
+  const groqModel = process.env.GROQ_MODEL ?? DEFAULT_GROQ_MODEL;
+
   let body: RequestBody;
   try {
     body = (await request.json()) as RequestBody;
@@ -164,7 +166,7 @@ export async function handleMelvinAssistant(request: Request) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: GROQ_MODEL,
+        model: groqModel,
         messages: [
           {
             role: "system",
@@ -191,6 +193,12 @@ export async function handleMelvinAssistant(request: Request) {
     });
 
     if (!response.ok) {
+      const providerError = await response.text();
+      console.error("[mini-mel] Groq request failed", {
+        status: response.status,
+        model: groqModel,
+        body: providerError.slice(0, 500),
+      });
       return json(
         { error: "Mini Mel could not reach the answer service. Please try again shortly." },
         response.status === 429 ? 429 : 502,

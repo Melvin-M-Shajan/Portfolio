@@ -13,7 +13,9 @@ const makeRequest = (body: unknown) =>
 
 afterEach(() => {
   delete process.env.GROQ_API_KEY;
+  delete process.env.GROQ_MODEL;
   vi.unstubAllGlobals();
+  vi.restoreAllMocks();
 });
 
 describe("Melvin assistant endpoint", () => {
@@ -50,8 +52,37 @@ describe("Melvin assistant endpoint", () => {
       model: string;
       messages: Array<{ role: string; content: string }>;
     };
-    expect(payload.model).toBe("llama-3.1-8b-instant");
+    expect(payload.model).toBe("openai/gpt-oss-20b");
     expect(payload.messages[0].content).toContain("VERIFIED PORTFOLIO KNOWLEDGE");
     expect(payload.messages[0].content).toContain("GraphRAG-Enterprise");
+  });
+
+  it("logs provider failures without exposing the API key", async () => {
+    process.env.GROQ_API_KEY = "secret-test-key";
+    const fetchMock = vi.fn().mockResolvedValue(
+      new Response('{"error":{"message":"The model is unavailable."}}', {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+      }),
+    );
+    const consoleError = vi.spyOn(console, "error").mockImplementation(() => undefined);
+    vi.stubGlobal("fetch", fetchMock);
+
+    const response = await handleMelvinAssistant(
+      makeRequest({ question: "What is Melvin's AI stack?" }),
+    );
+
+    expect(response.status).toBe(502);
+    await expect(response.json()).resolves.toEqual({
+      error: "Mini Mel could not reach the answer service. Please try again shortly.",
+    });
+    expect(consoleError).toHaveBeenCalledWith(
+      "[mini-mel] Groq request failed",
+      expect.objectContaining({
+        status: 400,
+        model: "openai/gpt-oss-20b",
+      }),
+    );
+    expect(JSON.stringify(consoleError.mock.calls)).not.toContain("secret-test-key");
   });
 });
