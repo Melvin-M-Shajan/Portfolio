@@ -14,7 +14,7 @@ export default function HomePage() {
     <>
       <section className="hero chapter">
         <div className="hero-copy">
-          <p className="eyebrow">{siteConfig.role} · Chennai, India</p>
+          <p className="eyebrow">{siteConfig.role} · Chennai, India · Available immediately</p>
           <h1>{siteConfig.headline}</h1>
           <p className="hero-summary">{siteConfig.summary}</p>
           <div className="hero-actions">
@@ -40,13 +40,13 @@ export default function HomePage() {
         <div className="project-bento">
           <GlowingCard className="bento-a">
             <Link href={`/projects/${projects[0].slug}`} className="card-link group">
-              <span className="card-index">Graph + vector retrieval</span>
+              <span className="card-index">Safe agent execution</span>
               <h3>{projects[0].title}</h3><p>{projects[0].strapline}</p><ArrowRight size={24} />
             </Link>
           </GlowingCard>
           <GlowingCard className="bento-b">
             <Link href={`/projects/${projects[1].slug}`} className="card-link group">
-              <span className="card-index">Safe agent execution</span>
+              <span className="card-index">Graph + vector retrieval</span>
               <h3>{projects[1].title}</h3><p>{projects[1].strapline}</p><ArrowRight size={24} />
             </Link>
           </GlowingCard>

@@ -18,6 +18,57 @@ export type ProjectCaseStudy = {
 
 export const projects: ProjectCaseStudy[] = [
   {
+    slug: "multi-agent-control-platform",
+    title: "Multi-Agent Control Platform",
+    strapline: "Natural language to safe SQL through supervised specialist agents.",
+    problem:
+      "Business users needed conversational access to PostgreSQL without allowing destructive SQL or hiding how requests were routed and executed.",
+    approach: [
+      "Used a Supervisor Agent to route requests through SQL generation, execution, formatting, and diagram agents, with minified live schema context grounding each request in available tables and columns.",
+      "Added SQL validation and runtime Row Level Security context switching to block destructive queries, reduce injection risk, and preserve existing PostgreSQL permissions.",
+      "Built Gemini and Groq fallback chains with retry handling so analysis could remain available when a model provider failed.",
+      "Created a ReactFlow, Recharts, and Mermaid.js observability dashboard so operators could inspect routing, execution, and failure behavior.",
+    ],
+    challenges: [
+      "Keeping generated SQL read-only and grounded in the live database schema.",
+      "Recovering cleanly from model-provider and database failures.",
+      "Making multi-agent execution understandable to operators.",
+    ],
+    outcomes: [
+      { label: "Query success rate", value: null },
+      { label: "Median response time", value: null },
+      { label: "Manual analysis saved", value: null },
+    ],
+    technologies: ["NestJS", "TypeScript", "LangChain", "Gemini", "Groq", "PostgreSQL", "TypeORM", "Zod", "RxJS", "React", "ReactFlow", "Recharts", "Mermaid.js", "npm"],
+    featureImage: "/images/projects/multi-agent-control-platform-feature.webp",
+    featureAlt: "A supervisor routes a natural-language query through specialist, validation, database, and response modules",
+    links: {
+      github: "https://github.com/Melvin-M-Shajan/multi-agent-control-platform",
+      demo: "https://multi-agent-control-platform-demo.vercel.app/",
+      package: "https://www.npmjs.com/package/melcp",
+    },
+    architecture: {
+      image: "/images/projects/multi-agent-control-platform-architecture.webp",
+      alt: "A query passes through supervisor routing, specialist agents, validation, PostgreSQL, and response formatting",
+      nodes: [
+        { id: "query", label: "User query", x: 35, y: 110 },
+        { id: "supervisor", label: "Supervisor", x: 200, y: 110 },
+        { id: "agents", label: "Specialist agents", x: 385, y: 55 },
+        { id: "guardrails", label: "Validation gate", x: 385, y: 165 },
+        { id: "database", label: "PostgreSQL", x: 585, y: 110 },
+        { id: "response", label: "Verified response", x: 770, y: 110 },
+      ],
+      edges: [
+        { from: "query", to: "supervisor" },
+        { from: "supervisor", to: "agents" },
+        { from: "supervisor", to: "guardrails" },
+        { from: "agents", to: "database" },
+        { from: "guardrails", to: "database" },
+        { from: "database", to: "response" },
+      ],
+    },
+  },
+  {
     slug: "graphrag-enterprise",
     title: "GraphRAG-Enterprise",
     strapline: "Hybrid graph and vector retrieval for multi-hop enterprise reasoning.",
@@ -60,57 +111,6 @@ export const projects: ProjectCaseStudy[] = [
         { from: "neo4j", to: "retrieval" },
         { from: "weaviate", to: "retrieval" },
         { from: "retrieval", to: "llm" },
-      ],
-    },
-  },
-  {
-    slug: "multi-agent-control-platform",
-    title: "Multi-Agent Control Platform",
-    strapline: "Natural language to safe SQL through supervised specialist agents.",
-    problem:
-      "Business users needed conversational access to PostgreSQL without allowing destructive SQL or hiding how requests were routed and executed.",
-    approach: [
-      "Used a Supervisor Agent to route requests through SQL generation, execution, formatting, and diagram agents, with minified live schema context grounding each request in available tables and columns.",
-      "Added SQL validation and runtime Row Level Security context switching to block destructive queries, reduce injection risk, and preserve existing PostgreSQL permissions.",
-      "Built Gemini and Groq fallback chains with retry handling so analysis could remain available when a model provider failed.",
-      "Created a ReactFlow, Recharts, and Mermaid.js observability dashboard so operators could inspect routing, execution, and failure behavior.",
-    ],
-    challenges: [
-      "Keeping generated SQL read-only and grounded in the live database schema.",
-      "Recovering cleanly from model-provider and database failures.",
-      "Making multi-agent execution understandable to operators.",
-    ],
-    outcomes: [
-      { label: "Query success rate", value: null },
-      { label: "Median response time", value: null },
-      { label: "Manual analysis saved", value: null },
-    ],
-    technologies: ["NestJS", "TypeScript", "LangChain", "Gemini", "Groq", "PostgreSQL", "TypeORM", "Zod", "RxJS", "React", "ReactFlow", "Recharts", "Mermaid.js", "npm"],
-    featureImage: "/images/projects/multi-agent-control-platform-feature.webp",
-    featureAlt: "A supervisor routes a natural-language query through specialist, validation, database, and response modules",
-    links: {
-      github: "https://github.com/Melvin-M-Shajan/multi-agent-control-platform",
-      demo: null,
-      package: "https://www.npmjs.com/package/melcp",
-    },
-    architecture: {
-      image: "/images/projects/multi-agent-control-platform-architecture.webp",
-      alt: "A query passes through supervisor routing, specialist agents, validation, PostgreSQL, and response formatting",
-      nodes: [
-        { id: "query", label: "User query", x: 35, y: 110 },
-        { id: "supervisor", label: "Supervisor", x: 200, y: 110 },
-        { id: "agents", label: "Specialist agents", x: 385, y: 55 },
-        { id: "guardrails", label: "Validation gate", x: 385, y: 165 },
-        { id: "database", label: "PostgreSQL", x: 585, y: 110 },
-        { id: "response", label: "Verified response", x: 770, y: 110 },
-      ],
-      edges: [
-        { from: "query", to: "supervisor" },
-        { from: "supervisor", to: "agents" },
-        { from: "supervisor", to: "guardrails" },
-        { from: "agents", to: "database" },
-        { from: "guardrails", to: "database" },
-        { from: "database", to: "response" },
       ],
     },
   },

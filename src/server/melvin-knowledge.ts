@@ -1,7 +1,7 @@
 import { petAssistant } from "../content/assistant.js";
 import { posts } from "../content/posts.js";
 import { projects } from "../content/projects.js";
-import { siteConfig, skills, workHighlights } from "../content/site.js";
+import { openSourceProjects, siteConfig, skills, workHighlights } from "../content/site.js";
 
 const formatProject = (project: (typeof projects)[number]) => {
   const outcomes = project.outcomes
@@ -38,6 +38,7 @@ export const melvinKnowledge = [
   `Skills:\n${Object.entries(skills).map(([group, values]) => `${group}: ${values.join(", ")}`).join("\n")}`,
   `Selected work highlights:\n${workHighlights.map((item) => `${item.title}: ${item.detail}`).join("\n")}`,
   `Detailed case studies:\n${projects.map(formatProject).join("\n\n")}`,
+  `Open-source projects:\n${openSourceProjects.map((repo) => `${repo.title} (${repo.kind}): ${repo.detail} Technologies: ${repo.technologies.join(", ")}. Repository: ${repo.href}`).join("\n")}`,
   `Current research interests:\n${siteConfig.currentExploring.map((item) => `${item.title}: ${item.detail}`).join("\n")}`,
   `Writing:\n${posts.map((post) => `${post.title} (${post.date}; ${post.draft ? "draft" : "published"}): ${post.description}`).join("\n")}`,
 ].join("\n\n");

@@ -9,9 +9,9 @@ describe("portfolio configuration", () => {
   it("keeps unverified outcomes explicit and links honest", () => {
     expect(projects).toHaveLength(2);
     expect(projects.flatMap((project) => project.outcomes).every((outcome) => outcome.value === null)).toBe(true);
-    expect(projects[0].links).toEqual({ github: null, demo: null, package: null });
-    expect(projects[1].links.github).toBe("https://github.com/Melvin-M-Shajan/multi-agent-control-platform");
-    expect(projects[1].links.package).toBe("https://www.npmjs.com/package/melcp");
+    expect(projects[1].links).toEqual({ github: null, demo: null, package: null });
+    expect(projects[0].links.github).toBe("https://github.com/Melvin-M-Shajan/multi-agent-control-platform");
+    expect(projects[0].links.package).toBe("https://www.npmjs.com/package/melcp");
   });
 
   it("keeps private contact details out of public configuration", () => {

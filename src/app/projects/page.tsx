@@ -3,7 +3,7 @@ import Image from "next/image";
 import { ArrowUpRight } from "@phosphor-icons/react/dist/ssr";
 import { GlowingCard, HorizontalAccordion } from "@/components/ui";
 import { projects } from "@/content/projects";
-import { workHighlights } from "@/content/site";
+import { openSourceProjects, workHighlights } from "@/content/site";
 
 export const metadata = {
   title: "Projects",
@@ -30,6 +30,15 @@ export default function ProjectsPage() {
           </GlowingCard>
         ))}
       </section>
+      <section className="chapter"><div className="section-heading"><p className="eyebrow">Open source</p>
+        <h2>Smaller builds with public code and measured results.</h2></div>
+        <div className="post-list repo-list">{openSourceProjects.map((repo) => (
+          <a key={repo.href} href={repo.href} target="_blank" rel="noreferrer" className="post-card group">
+            <div><span>{repo.kind}</span><span>GitHub</span></div>
+            <h2>{repo.title}</h2><p>{repo.detail}</p>
+            <div className="tag-list">{repo.technologies.map((tech) => <span key={tech}>{tech}</span>)}</div><ArrowUpRight size={24} />
+          </a>
+        ))}</div></section>
       <section className="chapter"><div className="section-heading"><p className="eyebrow">Work highlights</p>
         <h2>Production work beyond the two featured systems.</h2></div>
         <HorizontalAccordion items={workHighlights.map((item) => ({ ...item }))} /></section>

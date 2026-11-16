@@ -58,9 +58,10 @@ export const siteConfig: SiteConfig = {
 
 export const skills = {
   Languages: ["Python", "JavaScript", "TypeScript", "SQL"],
-  "AI frameworks": ["LangGraph", "LangChain", "OpenAI API", "Anthropic API", "LangSmith"],
+  "AI frameworks": ["LangGraph", "LangChain", "Model Context Protocol (MCP)", "Langfuse", "OpenAI API", "Anthropic API", "LangSmith"],
+  "Machine learning": ["Model Fine-Tuning (LoRA, QLoRA)", "PyTorch", "Hugging Face Transformers"],
   "AI systems": ["Agentic AI", "Multi-Agent Systems", "RAG", "Graph-RAG", "Prompt Engineering", "LLM Evaluation"],
-  Data: ["PostgreSQL", "Neo4j", "Weaviate", "Vector Databases", "PostGIS"],
+  Data: ["PostgreSQL", "Pinecone", "Neo4j", "Weaviate", "Vector Databases", "PostGIS"],
   Cloud: ["AWS", "Amazon EC2", "Amazon S3", "AWS Lambda", "Amazon RDS", "Amazon Bedrock", "CloudWatch"],
   Automation: ["n8n", "Apache NiFi", "ETL Pipelines"],
   Engineering: ["React", "FastAPI", "NestJS", "REST APIs", "Docker"],
@@ -97,5 +98,24 @@ export const workHighlights = [
     detail: "Delivered PostGIS and Apache Superset dashboards that replaced spreadsheet-based validation.",
     image: "/images/projects/geospatial-analytics.webp",
     alt: "Layered terrain, cadastral boundaries, and spatial indexes prepared for geospatial analysis",
+  },
+] as const;
+
+export const openSourceProjects = [
+  {
+    title: "MCP Codebase Agent",
+    kind: "LangGraph agent + MCP server",
+    detail:
+      "A read-only agent that investigates the httpx repository through MCP tools (search, read file, run tests, commit history) and answers with exact file and line citations, grounded by RAG over tree-sitter chunks in Pinecone. Covered by 26 unit and integration tests.",
+    technologies: ["Python", "LangGraph", "MCP", "Pinecone", "Sentence Transformers", "Docker"],
+    href: "https://github.com/Melvin-M-Shajan/mcp-codebase-agent",
+  },
+  {
+    title: "Invoice Field Extraction",
+    kind: "LoRA fine-tuned LLM",
+    detail:
+      "Qwen2.5-1.5B-Instruct fine-tuned with LoRA to extract invoice fields, raising F1 from 0.60 to 0.85 on 100 held-out SROIE receipts. Trained with 4-bit QLoRA on a 4 GB GPU, with the zero-shot baseline and failure modes documented.",
+    technologies: ["Python", "PyTorch", "Hugging Face Transformers", "LoRA", "QLoRA"],
+    href: "https://github.com/Melvin-M-Shajan/invoice-finetune",
   },
 ] as const;

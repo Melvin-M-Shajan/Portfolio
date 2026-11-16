@@ -732,3 +732,6 @@ button, a { -webkit-tap-highlight-color: transparent; }
   .graph-node, .graph-pulse { animation: none !important; }
   .portfolio-pet { --pet-x: 16px; }
 }
+
+.repo-list .post-card { min-height: 0; display: block; }
+.repo-list .post-card h2 { margin-top: 2.5rem; }
